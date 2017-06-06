@@ -12,12 +12,12 @@ var contactView *views.View
 
 func home(w http.ResponseWriter, r *http.Request) {
   w.Header().Set("Content-Type", "text/html")
-  homeView.Template.Execute(w, nil)
+  homeView.Template.ExecuteTemplate(w, homeView.Layout, nil)
 }
 
 func contact(w http.ResponseWriter, r *http.Request) {
   w.Header().Set("Content-Type", "text/html")
-  contactView.Template.Execute(w, nil)
+  contactView.Template.ExecuteTemplate(w, contactView.Layout, nil)
 }
 
 func faq(w http.ResponseWriter, r *http.Request) {
@@ -35,8 +35,8 @@ func notFound(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-  homeView = views.NewView("views/home.gohtml")
-  contactView = views.NewView("views/contact.gohtml")
+  homeView = views.NewView("bootstrap", "views/home.gohtml")
+  contactView = views.NewView("bootstrap", "views/contact.gohtml")
 
   r := mux.NewRouter()
   r.HandleFunc("/", home)
