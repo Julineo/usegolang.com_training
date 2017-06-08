@@ -12,12 +12,12 @@ var contactView *views.View
 
 func home(w http.ResponseWriter, r *http.Request) {
   w.Header().Set("Content-Type", "text/html")
-  homeView.Template.ExecuteTemplate(w, homeView.Layout, nil)
+  homeView.Render(w, nil)
 }
 
 func contact(w http.ResponseWriter, r *http.Request) {
   w.Header().Set("Content-Type", "text/html")
-  contactView.Template.ExecuteTemplate(w, contactView.Layout, nil)
+  contactView.Render(w, nil)
 }
 
 func faq(w http.ResponseWriter, r *http.Request) {
