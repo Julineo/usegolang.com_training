@@ -5,12 +5,13 @@ import (
   "net/http"
   "github.com/gorilla/mux"
   "usegolang.com/views"
+  "usegolang.com/controllers"
 )
 
 var homeView *views.View
 var contactView *views.View
 var faqView *views.View
-var signupView *views.View
+var usersC *controllers.Users
 
 func home(w http.ResponseWriter, r *http.Request) {
   w.Header().Set("Content-Type", "text/html")
@@ -27,11 +28,6 @@ func faq(w http.ResponseWriter, r *http.Request) {
   faqView.Render(w, nil)
 }
 
-func signup(w http.ResponseWriter, r *http.Request) {
-  w.Header().Set("Content-Type", "text/html")
-  signupView.Render(w, nil)
-}
-
 func notFound(w http.ResponseWriter, r *http.Request) {
   w.Header().Set("Content-Type", "text/html")
   fmt.Fprint(w, "<p>"+
@@ -43,13 +39,13 @@ func main() {
   homeView = views.NewView("bootstrap", "views/home.gohtml")
   contactView = views.NewView("bootstrap", "views/contact.gohtml")
   faqView = views.NewView("bootstrap", "views/FAQ.gohtml")
-  signupView = views.NewView("bootstrap", "views/signup.gohtml")
+  usersC = controllers.NewUsers()
 
   r := mux.NewRouter()
   r.HandleFunc("/", home)
   r.HandleFunc("/contact", contact)
   r.HandleFunc("/faq", faq)
-  r.HandleFunc("/signup", signup)
+  r.HandleFunc("/signup", usersC.New)
   r.NotFoundHandler = http.HandlerFunc(notFound)
   http.ListenAndServe(":3000", r)
 }
