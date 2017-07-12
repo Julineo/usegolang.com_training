@@ -22,3 +22,11 @@ type Users struct {
 func (u *Users) New(w http.ResponseWriter, r *http.Request) {
   u.NewView.Render(w, nil)
 }
+
+// Create is used to process the signup form when a user
+// tries to create a new user account.
+//
+// POST /signup
+func (u *Users) Create(w http.ResponseWriter, r *http.Request) {
+  fmt.Fprintln(w, "This is a temporary response.")
+}
